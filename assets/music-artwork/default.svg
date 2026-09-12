@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <defs>
+    <radialGradient id="grad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff8eb"/>
+      <stop offset="60%" stop-color="#f5e6ce"/>
+      <stop offset="100%" stop-color="#e0caa3"/>
+    </radialGradient>
+  </defs>
+  <rect width="300" height="300" rx="16" fill="url(#grad)"/>
+  <circle cx="150" cy="150" r="70" fill="#d9a036" opacity="0.15"/>
+  <circle cx="150" cy="150" r="45" fill="#a67822" opacity="0.25"/>
+  <g transform="translate(150, 150)">
+    <circle cx="0" cy="0" r="22" fill="#5c4314"/>
+    <!-- Sunflower petals -->
+    <ellipse cx="0" cy="-36" rx="6" ry="14" fill="#d9a036"/>
+    <ellipse cx="25" cy="-25" rx="6" ry="14" fill="#d9a036" transform="rotate(45 25 -25)"/>
+    <ellipse cx="36" cy="0" rx="6" ry="14" fill="#d9a036" transform="rotate(90 36 0)"/>
+    <ellipse cx="25" cy="25" rx="6" ry="14" fill="#d9a036" transform="rotate(135 25 25)"/>
+    <ellipse cx="0" cy="36" rx="6" ry="14" fill="#d9a036"/>
+    <ellipse cx="-25" cy="25" rx="6" ry="14" fill="#d9a036" transform="rotate(225 -25 25)"/>
+    <ellipse cx="-36" cy="0" rx="6" ry="14" fill="#d9a036" transform="rotate(270 -36 0)"/>
+    <ellipse cx="-25" cy="-25" rx="6" ry="14" fill="#d9a036" transform="rotate(315 -25 -25)"/>
+  </g>
+  <text x="150" y="250" font-family="'Playfair Display', serif" font-size="14" font-style="italic" fill="#7a633f" text-anchor="middle">Sunflower Radio</text>
+</svg>

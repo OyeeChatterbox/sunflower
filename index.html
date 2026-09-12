@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Little Surprise 🌻</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/glass.css">
+    <link rel="stylesheet" href="css/observations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Background Animation Layer -->
+    <div id="ambient-background">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div id="petal-container"></div>
+    </div>
+
+    <!-- Opening / Landing Screen -->
+    <section id="intro-screen" class="fullscreen-section active">
+        <div class="intro-content fade-in-up">
+            <h1 class="serif-text">Some people make ordinary moments feel a little more special. 🌻</h1>
+            <button id="enter-btn" class="glass-btn">Open this little surprise</button>
+        </div>
+    </section>
+
+    <!-- Main Website Content (Hidden initially) -->
+    <main id="main-content" class="hidden">
+        
+        <!-- Top Navigation Bar -->
+        <nav id="site-navbar" class="glass-navbar">
+            <div class="nav-container">
+                <a href="#for-you-section" class="nav-brand serif-text">
+                    <span class="nav-flower">🌻</span> <span>For You</span>
+                </a>
+                <div class="nav-links">
+                    <a href="#for-you-section" class="nav-link">Photographs</a>
+                    <a href="#gallery-section" class="nav-link">Moments</a>
+                    <a href="#dialogue-section" class="nav-link">About You</a>
+                    <a href="https://github.com/OyeeChatterbox" target="_blank" rel="noopener noreferrer" class="nav-link nav-icon-link" title="GitHub">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="about.html" class="nav-link dev-nav-btn">
+                        <span>Developer Babu 👨‍💻</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- For You Section -->
+        <section id="for-you-section" class="section for-you-section">
+            <div class="section-header fade-in">
+                <h2 class="serif-text glow-text" id="config-hero-title">For You.</h2>
+                <p class="subtitle" id="config-hero-subtitle">because you deserve something beautiful today.</p>
+            </div>
+            
+            <div class="scattered-photos-container" id="scattered-photos-container">
+                <!-- 4 artistic casually placed photos dynamically populated from config -->
+            </div>
+        </section>
+
+        <!-- Photo Wall / Memory Gallery -->
+        <section id="gallery-section" class="section">
+            <div class="section-header fade-in">
+                <h2 class="serif-text">Moments.</h2>
+            </div>
+            <div id="masonry-gallery" class="masonry-grid">
+                <!-- Gallery items injected via JS -->
+            </div>
+        </section>
+
+        <!-- "Things That Make You, You" Section -->
+    <section class="section observations-section">
+        <div class="section-header fade-in">
+            <h2 class="serif-text glow-text">Things That Make You, You.</h2>
+        </div>
+        <div class="content-wrapper w-100">
+            
+            <div class="observations-grid">
+                <!-- 1. The Way You Look At Me -->
+                <div class="glass-card observation-card observe-target fade-in-up">
+                    <div class="obs-eyes-img-wrapper">
+                        <img src="assets/images/eyes.png" alt="Her eyes" class="obs-eyes-img">
+                    </div>
+                    <p class="obs-main-text" id="obs-look-text"></p>
+                    <p class="obs-caption" id="obs-look-caption"></p>
+                </div>
+                
+                <!-- 2. The Head Movement -->
+                <div class="glass-card observation-card observe-target fade-in-up">
+                    <div class="head-movement-icon"></div>
+                    <p class="obs-main-text" id="obs-head-text"></p>
+                    <p class="obs-caption" id="obs-head-caption"></p>
+                </div>
+                
+                <!-- 4. Bonny -->
+                <div class="glass-card observation-card bonny-card observe-target fade-in-up">
+                    <h4 class="obs-title glow-text" id="obs-bonny-title"></h4>
+                    <p class="obs-main-text" id="obs-bonny-text"></p>
+                    <p class="obs-subtext" id="obs-bonny-subtext"></p>
+                </div>
+                
+                <!-- 3. Fit Check (Interactive) -->
+                <div class="glass-card observation-card fit-check-card observe-target fade-in-up" id="fit-check-trigger">
+                    <div class="fit-check-content">
+                        <svg viewBox="0 0 24 24" width="32" height="32" stroke="var(--sunflower-main)" stroke-width="1.5" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                        <h4 class="obs-title glow-text" id="obs-fit-title"></h4>
+                        <p class="obs-subtitle" id="obs-fit-subtitle"></p>
+                        <span class="view-btn">Tap to view</span>
+                    </div>
+                </div>
+
+                <!-- 5. Dialogue -->
+                <div class="glass-card observation-card dialogue-card observe-target fade-in-up" id="dialogue-section">
+                    <div class="dialogue-line me-line">
+                        <span class="speaker">ME:</span>
+                        <p class="typewriter-text" id="obs-dia-me1"></p>
+                    </div>
+                    <div class="dialogue-line her-line">
+                        <span class="speaker">HER:</span>
+                        <p class="typewriter-text" id="obs-dia-her"></p>
+                    </div>
+                    <div class="dialogue-line me-line">
+                        <span class="speaker">ME:</span>
+                        <p class="typewriter-text" id="obs-dia-me2"></p>
+                    </div>
+                </div>
+
+                <!-- 5.5 Adaptable -->
+                <div class="glass-card observation-card adaptable-card observe-target fade-in-up">
+                    <h4 class="obs-title" id="obs-adaptable-title"></h4>
+                    <p class="obs-main-text" id="obs-adaptable-text1"></p>
+                    <p class="obs-main-text" id="obs-adaptable-text2"></p>
+                    <p class="obs-outro" id="obs-adaptable-outro"></p>
+                </div>
+
+                <!-- 6. The Lawyer -->
+                <div class="glass-card observation-card lawyer-card observe-target fade-in-up">
+                    <div class="lawyer-decor">
+                        <svg viewBox="0 0 24 24" width="40" height="40" stroke="var(--sunflower-main)" stroke-width="1" fill="none" opacity="0.3"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    </div>
+                    <h4 class="obs-title glow-text" id="obs-lawyer-title"></h4>
+                    <p class="obs-intro" id="obs-lawyer-intro"></p>
+                    <p class="obs-main-text" id="obs-lawyer-text"></p>
+                    <p class="obs-outro" id="obs-lawyer-outro"></p>
+                </div>
+            </div>
+
+            <!-- 7. Just You (Full width calm card) -->
+            <div class="glass-card observation-card calm-card observe-target fade-in-up">
+                <h4 class="obs-title glow-text" id="obs-admire-title"></h4>
+                <p class="obs-main-text" id="obs-admire-text1"></p>
+                <p class="obs-main-text" id="obs-admire-text2"></p>
+                <p class="obs-outro" id="obs-admire-text3"></p>
+            </div>
+            
+            <!-- 8. The Green Saree Photo -->
+            <div class="green-saree-section observe-target fade-in-up">
+                <h4 class="section-heading serif-text glow-text" id="obs-green-title"></h4>
+                <div class="cinematic-frame">
+                    <img id="obs-green-img" class="cinematic-img" src="" alt="That one picture">
+                    <div class="soft-glow-overlay"></div>
+                </div>
+                <p class="personal-caption" id="obs-green-caption"></p>
+            </div>
+            
+        </div>
+    </section>
+    
+    <!-- Fit Check Fullscreen Gallery -->
+    <div id="fit-check-gallery" class="fullscreen-gallery hidden">
+        <button class="gallery-close" id="fit-close">
+            <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="1.5" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <div class="gallery-header glow-text">FIT CHECK</div>
+        <div class="fit-gallery-track" id="fit-gallery-track">
+            <!-- Dynamically populated -->
+        </div>
+        <button class="nav-btn prev-btn" id="fit-prev">&#10094;</button>
+        <button class="nav-btn next-btn" id="fit-next">&#10095;</button>
+    </div>
+
+        <!-- Final Section: The Personal Letter -->
+        <section id="final-section" class="section personal-letter-section">
+            <div class="letter-container observe-target fade-in-up">
+                <div class="letter-header">
+                    <span class="letter-tag">A quiet thought</span>
+                    <h3 class="serif-text letter-heading">Just between us.</h3>
+                </div>
+                
+                <div class="letter-card">
+                    <p class="letter-paragraph">
+                        Sabse zyada maine ek cheez sochi hai... ki shayad main tumhe pasand karta hoon. Actually, pasand toh karta hi hoon, but kabhi-kabhi mujhe genuinely lagta hai ki shayad main tumhare liye theek insaan nahi hoon.
+                    </p>
+
+                    <p class="letter-paragraph">
+                        Ye thought pata nahi kyun aata hai, but jab bhi tumhe observe karta hoon na, tab ye cheez aur deep lagne lagti hai.
+                    </p>
+
+                    <p class="letter-paragraph">
+                        The way you look at me sometimes—apni aankhein thodi wide karke, jaise sach mein mera pura dimaag ek baar me read karne ki koshish kar rahi ho. Aur baat karte-karte wo ajeeb sa, funny tareeka jisme tum apna sar hilati ho. Wo bina kisi reason ke playfully idhar-udhar jump karna, chalte-chalte achanak playful ho jana...
+                    </p>
+
+                    <p class="letter-paragraph">
+                        Aur sabse achhi baat: tum kisi ko impress karne ke liye apna koi fake version nahi banati. You don't change who you are just because other people expect it. Situations chahe jaisi bhi hon, tum adapt kar leti ho without completely changing yourself.
+                    </p>
+
+                    <p class="letter-paragraph">
+                        And honestly, jab main ye sab dekhta hoon na, toh mujhe lagta hai ki tum kitni genuine, kitni special insaan ho. Aur shayad isi wajah se mere dimaag mein ek simple sa sawaal aa jata hai:
+                    </p>
+
+                    <p class="letter-quote">
+                        “Kya main actually tumhare liye sahi hoon?”
+                    </p>
+
+                    <p class="letter-paragraph">
+                        Aisa nahi hai ki tum literally perfect ho, aur na hi main koi dramatic baatein bolna chahta hoon. But meri aankhon mein dekhogi toh tum mujhe mujhse kaafi behtar lagti ho. Tumhe dekh ke kabhi-kabhi lagta hai ki tumhari life mein shayad koi bohot achha insaan likha hoga. Koi jo tumhare liye mujhse better suited ho... koi jo tumhe wo sab de sake jo tum actually deserve karti ho. Aur mujhe sach mein nahi pata ki wo insaan main hoon ya nahi.
+                    </p>
+
+                    <p class="letter-paragraph">
+                        Ye main isliye nahi bol raha ki tum mere liye bura feel karo, ya ye koi self-pity hai. Aisa bilkul nahi hai. It's simply an honest thought jo mere andar kaafi time se thi.
+                    </p>
+
+                    <div class="letter-closing">
+                        <p class="letter-ending">
+                            Bas... ab mujhe nahi pata aur kya bolun.<br>
+                            Honestly, mere paas ab words nahi hain.<br>
+                            Jo tha, woh shayad bol diya.<br>
+                            Bas tumhe batana tha.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Final Question: The Moment of Courage -->
+                <div class="final-question-container observe-target">
+                    <div class="final-question-card">
+                        <div class="final-question-glow"></div>
+                        <p class="final-question-pre">Waise... ek baat poochun?</p>
+                        <h2 class="final-question-ask serif-text">Kya tumko main pasand hoon?</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox hidden">
+        <div class="lightbox-bg"></div>
+        <button id="lightbox-close" class="icon-btn lightbox-close" aria-label="Close">
+            <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="Enlarged photo">
+            <p id="lightbox-caption" class="lightbox-caption"></p>
+        </div>
+        <button id="lightbox-prev" class="icon-btn lightbox-nav prev" aria-label="Previous">
+            <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button id="lightbox-next" class="icon-btn lightbox-nav next" aria-label="Next">
+            <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+    </div>
+
+    <!-- Music Guide Tooltip / Pointer -->
+    <div id="music-guide-tooltip" class="music-guide-tooltip hidden">
+        <button class="guide-close-btn" id="guide-close" aria-label="Close guide">&times;</button>
+        <div class="guide-content">
+            <span class="guide-badge">🎵 Playlist</span>
+            <p class="guide-title">Here is your all time favorite music</p>
+            <p class="guide-sub">GO AND CHECK IT OUT! ↘</p>
+        </div>
+        <div class="guide-arrow-pointer">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <polyline points="19 12 12 19 5 12"></polyline>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Expandable Cassette Music Player (Floating) -->
+    <div id="music-player" class="expandable-cassette-player hidden">
+        
+        <!-- Collapsed View -->
+        <div class="cassette-collapsed" id="cassette-collapsed">
+            <div class="cassette-reel-mini" id="cassette-reel">
+                <div class="reel-circle"></div>
+                <div class="reel-circle"></div>
+            </div>
+            <div class="cassette-info-mini">
+                <div class="song-title-mini" id="player-title">Loading...</div>
+                <div class="time-mini">
+                    <span id="player-time-current">0:00</span> / <span id="player-time-total">0:00</span>
+                </div>
+                <input type="range" id="player-progress" class="progress-slider-mini" min="0" max="100" value="0">
+            </div>
+            <button id="player-play-pause" class="player-btn play-circle-mini">
+                <svg class="icon-small music-play-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"></path>
+                </svg>
+                <svg class="icon-small music-pause-icon hidden" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+                </svg>
+            </button>
+            <button id="player-expand-btn" class="player-btn small-btn">
+                <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Expanded View -->
+        <div class="cassette-expanded hidden" id="cassette-expanded">
+            <div class="expanded-header">
+                <h4>Playlist</h4>
+                <button id="player-collapse-btn" class="player-btn small-btn">
+                    <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <ul id="playlist-container" class="playlist-list">
+                <!-- Dynamically populated -->
+            </ul>
+            
+            <div class="player-playback-controls">
+                <button id="player-shuffle" class="player-btn small-btn">
+                    <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path>
+                    </svg>
+                </button>
+                <button id="player-prev" class="player-btn">
+                    <svg class="icon-outline" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"></path>
+                    </svg>
+                </button>
+                <!-- Play/Pause is shared with the mini view via ID, so we will use the DOM event or have a separate one. Let's make it separate ID for expanded. -->
+                <button id="player-play-pause-expanded" class="player-btn play-circle">
+                    <svg class="icon-outline music-play-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z"></path>
+                    </svg>
+                    <svg class="icon-outline music-pause-icon hidden" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+                    </svg>
+                </button>
+                <button id="player-next" class="player-btn">
+                    <svg class="icon-outline" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"></path>
+                    </svg>
+                </button>
+                <button id="player-repeat" class="player-btn small-btn">
+                    <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 1l4 4-4 4M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 01-4 4H3"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="player-volume-container">
+                <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.54 8.46a5 5 0 010 7.07"></path>
+                </svg>
+                <input type="range" id="player-volume" class="volume-slider" min="0" max="100" value="100">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hidden YouTube API container -->
+    <div style="position: fixed; bottom: 0; right: 0; width: 1px; height: 1px; z-index: -100; opacity: 0.01; overflow: hidden; pointer-events: none;">
+        <div id="youtube-player-container"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config/config.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/youtube.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="js/music-player.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/gallery.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

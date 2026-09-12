@@ -1,0 +1,41 @@
+/* Responsive Design */
+
+@media (max-width: 768px) {
+    .section {
+        padding: 60px 15px;
+    }
+
+    .slider-container {
+        height: 50vh;
+        border-radius: 12px;
+    }
+
+    .masonry-grid {
+        column-count: 2;
+        column-gap: 15px;
+    }
+
+    
+    
+    .player-volume-container {
+        display: none; /* Hide volume on tiny screens to save space */
+    }
+}
+
+@media (max-width: 480px) {
+    .masonry-grid {
+        column-count: 1;
+    }
+
+    .slider-controls {
+        bottom: 15px;
+        padding: 5px 10px;
+    }
+    
+    .slider-caption {
+        font-size: 0.9rem;
+        top: 15px;
+        left: 15px;
+        padding: 5px 10px;
+    }
+}
