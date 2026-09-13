@@ -336,6 +336,25 @@ document.addEventListener('DOMContentLoaded', () => {
             if (voiceProgress) voiceProgress.value = 0;
             if (voiceCurrentTime) voiceCurrentTime.textContent = "0:00";
         });
+
+        const voiceRewindBtn = document.getElementById('voice-rewind-btn');
+        const voiceForwardBtn = document.getElementById('voice-forward-btn');
+
+        if (voiceRewindBtn) {
+            voiceRewindBtn.addEventListener('click', () => {
+                if (noteAudio) {
+                    noteAudio.currentTime = Math.max(0, noteAudio.currentTime - 10);
+                }
+            });
+        }
+
+        if (voiceForwardBtn) {
+            voiceForwardBtn.addEventListener('click', () => {
+                if (noteAudio) {
+                    noteAudio.currentTime = Math.min(noteAudio.duration || 0, noteAudio.currentTime + 10);
+                }
+            });
+        }
     }
 
     // Setup WhatsApp Reply Box
