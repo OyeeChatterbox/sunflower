@@ -241,56 +241,98 @@
                     </div>
                 </div>
 
-                <!-- Personal Voice Note For Her -->
+                <!-- Personal Voice Note For Her (Hardware Glass Player Outerbox) -->
                 <div class="voice-note-container observe-target">
-                    <div class="voice-note-card">
+                    <div class="voice-player-chassis">
                         <div class="voice-note-glow"></div>
-                        <div class="voice-note-header">
-                            <span class="voice-tag">🎙️ Voice Note</span>
-                            <h3 class="serif-text voice-title">One last thing, in my voice.</h3>
-                            <p class="voice-subtitle">A little thought recorded just for you.</p>
+                        
+                        <!-- Top Hardware Deck Bar -->
+                        <div class="player-deck-bar">
+                            <div class="deck-status">
+                                <span class="status-indicator"></span>
+                                <span class="status-text">VOICE MEMO • SPECIAL NOTE</span>
+                            </div>
+                            <div class="deck-badge">
+                                <span>ORIGINAL AUDIO</span>
+                            </div>
                         </div>
                         
-                        <div class="voice-player">
-                            <button id="voice-play-btn" class="voice-play-btn" type="button" aria-label="Play audio note">
-                                <svg class="voice-icon-play" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                        <!-- Inner Acoustic Display Window -->
+                        <div class="player-display-window">
+                            <div class="window-glare"></div>
+                            
+                            <div class="display-meta">
+                                <div class="memo-title-wrap">
+                                    <h4 class="memo-title serif-text">A Note For You</h4>
+                                    <p class="memo-caption">One last thing, in my own voice.</p>
+                                </div>
+                                <span class="audio-format-pill">HQ AUDIO • 48kHz</span>
+                            </div>
+
+                            <!-- Animated Waveform Visualizer -->
+                            <div class="voice-waveform" id="voice-waveform">
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                                <span class="wave-bar"></span>
+                            </div>
+
+                            <!-- Progress & Timers -->
+                            <div class="voice-progress-container">
+                                <input type="range" id="voice-progress" class="voice-progress-slider" min="0" max="100" value="0" aria-label="Voice note progress">
+                                <div class="voice-time-display">
+                                    <span id="voice-current-time">0:00</span>
+                                    <span id="voice-total-time">0:00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hardware Control Deck -->
+                        <div class="player-controls-deck">
+                            <button id="voice-rewind-btn" class="deck-control-btn secondary-btn" type="button" aria-label="Rewind 10 seconds">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 4v6h6M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                                </svg>
+                                <span class="skip-label">10s</span>
+                            </button>
+
+                            <button id="voice-play-btn" class="deck-play-btn" type="button" aria-label="Play audio note">
+                                <div class="play-btn-glow"></div>
+                                <svg class="voice-icon-play" viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
                                     <polygon points="6 3 20 12 6 21 6 3"></polygon>
                                 </svg>
-                                <svg class="voice-icon-pause hidden" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                                <svg class="voice-icon-pause hidden" viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
                                     <rect x="6" y="4" width="4" height="16"></rect>
                                     <rect x="14" y="4" width="4" height="16"></rect>
                                 </svg>
                             </button>
-                            
-                            <div class="voice-track-info">
-                                <div class="voice-waveform" id="voice-waveform">
-                                    <span class="wave-bar"></span>
-                                    <span class="wave-bar"></span>
-                                    <span class="wave-bar"></span>
-                                    <span class="wave-bar"></span>
-                                    <span class="wave-bar"></span>
-                                    <span class="wave-bar"></span>
-                                    <span class="wave-bar"></span>
-                                    <span class="wave-bar"></span>
-                                    <span class="wave-bar"></span>
-                                    <span class="wave-bar"></span>
-                                    <span class="wave-bar"></span>
-                                    <span class="wave-bar"></span>
-                                    <span class="wave-bar"></span>
-                                    <span class="wave-bar"></span>
-                                    <span class="wave-bar"></span>
-                                    <span class="wave-bar"></span>
-                                    <span class="wave-bar"></span>
-                                    <span class="wave-bar"></span>
-                                </div>
-                                <div class="voice-progress-container">
-                                    <input type="range" id="voice-progress" class="voice-progress-slider" min="0" max="100" value="0" aria-label="Voice note progress">
-                                    <div class="voice-time-display">
-                                        <span id="voice-current-time">0:00</span>
-                                        <span id="voice-total-time">0:00</span>
-                                    </div>
-                                </div>
-                            </div>
+
+                            <button id="voice-forward-btn" class="deck-control-btn secondary-btn" type="button" aria-label="Forward 10 seconds">
+                                <span class="skip-label">10s</span>
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M23 4v6h-6M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                                </svg>
+                            </button>
                         </div>
 
                         <!-- Native HTML5 audio element -->
