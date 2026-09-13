@@ -264,6 +264,80 @@ document.addEventListener('DOMContentLoaded', () => {
         dialogueObserver.observe(dialogueSection);
     }
 
+    // Setup Personal Voice Note Player
+    const noteAudio = document.getElementById('note-audio');
+    const voicePlayBtn = document.getElementById('voice-play-btn');
+    const voiceWaveform = document.getElementById('voice-waveform');
+    const voiceProgress = document.getElementById('voice-progress');
+    const voiceCurrentTime = document.getElementById('voice-current-time');
+    const voiceTotalTime = document.getElementById('voice-total-time');
+
+    if (noteAudio && voicePlayBtn) {
+        const playIcon = voicePlayBtn.querySelector('.voice-icon-play');
+        const pauseIcon = voicePlayBtn.querySelector('.voice-icon-pause');
+
+        function formatVoiceTime(seconds) {
+            if (!seconds || isNaN(seconds)) return "0:00";
+            const m = Math.floor(seconds / 60);
+            const s = Math.floor(seconds % 60);
+            return `${m}:${s < 10 ? '0' + s : s}`;
+        }
+
+        noteAudio.addEventListener('loadedmetadata', () => {
+            if (voiceTotalTime && noteAudio.duration) {
+                voiceTotalTime.textContent = formatVoiceTime(noteAudio.duration);
+            }
+        });
+
+        noteAudio.addEventListener('timeupdate', () => {
+            if (!noteAudio.duration) return;
+            const progress = (noteAudio.currentTime / noteAudio.duration) * 100;
+            if (voiceProgress) voiceProgress.value = progress;
+            if (voiceCurrentTime) voiceCurrentTime.textContent = formatVoiceTime(noteAudio.currentTime);
+            if (voiceTotalTime && (voiceTotalTime.textContent === "0:00" || voiceTotalTime.textContent === "")) {
+                voiceTotalTime.textContent = formatVoiceTime(noteAudio.duration);
+            }
+        });
+
+        if (voiceProgress) {
+            voiceProgress.addEventListener('input', (e) => {
+                if (noteAudio.duration) {
+                    noteAudio.currentTime = (e.target.value / 100) * noteAudio.duration;
+                }
+            });
+        }
+
+        voicePlayBtn.addEventListener('click', () => {
+            if (noteAudio.paused) {
+                // Pause background cassette music so her voice note is crystal clear
+                if (window.YouTubeIntegration && YouTubeIntegration.isReady()) {
+                    YouTubeIntegration.pause();
+                }
+
+                noteAudio.play().then(() => {
+                    if (playIcon) playIcon.classList.add('hidden');
+                    if (pauseIcon) pauseIcon.classList.remove('hidden');
+                    if (voiceWaveform) voiceWaveform.classList.add('playing');
+                }).catch(err => {
+                    console.error("Audio playback error:", err);
+                });
+            } else {
+                noteAudio.pause();
+                if (playIcon) playIcon.classList.remove('hidden');
+                if (pauseIcon) pauseIcon.classList.add('hidden');
+                if (voiceWaveform) voiceWaveform.classList.remove('playing');
+            }
+        });
+
+        noteAudio.addEventListener('ended', () => {
+            if (playIcon) playIcon.classList.remove('hidden');
+            if (pauseIcon) pauseIcon.classList.add('hidden');
+            if (voiceWaveform) voiceWaveform.classList.remove('playing');
+            if (voiceProgress) voiceProgress.value = 0;
+            if (voiceCurrentTime) voiceCurrentTime.textContent = "0:00";
+        });
+    }
+
     // Setup WhatsApp Reply Box
     const sendWhatsappBtn = document.getElementById('send-whatsapp-btn');
     const replyTextarea = document.getElementById('her-reply-text');
