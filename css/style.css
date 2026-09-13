@@ -399,98 +399,175 @@ button {
 }
 
 /* ============================================================
-   Final Question: The Moment of Courage
+   Interactive Message Box (WhatsApp Connected)
    ============================================================ */
-.final-question-container {
-    margin-top: 130px;
-    margin-bottom: 130px;
+.reply-box-container {
+    margin-top: 100px;
+    margin-bottom: 120px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
 
-.final-question-card {
+.reply-box-card {
     position: relative;
-    max-width: 620px;
+    max-width: 640px;
     width: 100%;
-    padding: 58px 44px;
-    background: rgba(255, 253, 248, 0.76);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(217, 160, 54, 0.3);
+    padding: 48px 40px;
+    background: rgba(255, 253, 248, 0.85);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(217, 160, 54, 0.35);
     border-radius: 28px;
     text-align: center;
     box-shadow: 0 25px 60px rgba(100, 80, 50, 0.08), 
                 0 0 35px rgba(217, 160, 54, 0.12);
     opacity: 0;
-    transform: translateY(35px);
-    transition: opacity 2.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                transform 2.4s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 2.4s ease;
+    transform: translateY(30px);
+    transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.8s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 1.8s ease;
 }
 
-.final-question-container.visible .final-question-card {
+.reply-box-container.visible .reply-box-card {
     opacity: 1;
     transform: translateY(0);
     box-shadow: 0 30px 70px rgba(100, 80, 50, 0.1), 
                 0 0 50px rgba(217, 160, 54, 0.2);
 }
 
-.final-question-glow {
+.reply-box-glow {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
-    height: 80%;
-    background: radial-gradient(circle, rgba(242, 213, 136, 0.28) 0%, rgba(217, 160, 54, 0) 70%);
+    width: 85%;
+    height: 85%;
+    background: radial-gradient(circle, rgba(242, 213, 136, 0.25) 0%, rgba(217, 160, 54, 0) 70%);
     pointer-events: none;
     z-index: 0;
     border-radius: 50%;
 }
 
-.final-question-pre {
+.reply-tag {
     position: relative;
     z-index: 1;
-    font-family: 'Inter', sans-serif;
-    font-size: 1.12rem;
-    font-weight: 400;
-    color: var(--text-secondary);
-    letter-spacing: 0.3px;
-    margin-bottom: 18px;
-    opacity: 0.85;
+    display: inline-block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--sunflower-dark);
+    font-weight: 600;
+    background: rgba(217, 160, 54, 0.14);
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
 }
 
-.final-question-ask {
+.reply-title {
     position: relative;
     z-index: 1;
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
+    font-size: 1.85rem;
+    color: var(--text-primary);
     font-weight: 500;
-    font-style: italic;
-    color: var(--sunflower-dark);
-    line-height: 1.45;
-    letter-spacing: -0.3px;
-    text-shadow: 0 2px 24px rgba(217, 160, 54, 0.22);
+    margin-bottom: 10px;
+}
+
+.reply-subtitle {
+    position: relative;
+    z-index: 1;
+    font-size: 0.98rem;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.reply-input-wrapper {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 22px;
+}
+
+.reply-textarea {
+    width: 100%;
+    border: 1px solid rgba(217, 160, 54, 0.35);
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+    padding: 16px 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.98rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    outline: none;
+    resize: vertical;
+    min-height: 110px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.reply-textarea:focus {
+    border-color: var(--sunflower-main);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 15px rgba(217, 160, 54, 0.25);
+}
+
+.whatsapp-send-btn {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 13px 28px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.whatsapp-send-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.45);
+}
+
+.whatsapp-send-btn:active {
+    transform: translateY(0);
+}
+
+.whatsapp-icon {
+    flex-shrink: 0;
 }
 
 @media (max-width: 768px) {
-    .final-question-container {
-        margin-top: 85px;
-        margin-bottom: 95px;
+    .reply-box-container {
+        margin-top: 70px;
+        margin-bottom: 90px;
     }
-    .final-question-card {
-        padding: 42px 24px;
+    .reply-box-card {
+        padding: 34px 20px;
         border-radius: 22px;
     }
-    .final-question-pre {
-        font-size: 1.02rem;
-        margin-bottom: 14px;
+    .reply-title {
+        font-size: 1.55rem;
     }
-    .final-question-ask {
-        font-size: 1.7rem;
-        line-height: 1.4;
+    .reply-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 18px;
+    }
+    .reply-textarea {
+        font-size: 0.92rem;
+        padding: 14px;
+        min-height: 100px;
+    }
+    .whatsapp-send-btn {
+        width: 100%;
+        padding: 13px 20px;
     }
 }
 
