@@ -21,6 +21,7 @@ function createYTPlayer() {
 
     try {
         ytPlayer = new YT.Player('youtube-player-container', {
+            host: 'https://www.youtube-nocookie.com',
             height: '200',
             width: '200',
             videoId: siteConfig.music[0].youtubeId,
@@ -32,6 +33,7 @@ function createYTPlayer() {
                 'rel': 0,
                 'modestbranding': 1,
                 'playsinline': 1,
+                'iv_load_policy': 3,
                 'origin': window.location.origin
             },
             events: {
@@ -57,8 +59,56 @@ function onPlayerError(event) {
     document.dispatchEvent(new CustomEvent('ytPlayerError', { detail: event.data }));
 }
 
+let adShieldInterval = null;
+let currentExpectedVideoId = (typeof siteConfig !== 'undefined' && siteConfig.music && siteConfig.music[0]) ? siteConfig.music[0].youtubeId : null;
+
+function startAdShield() {
+    if (adShieldInterval) return;
+    adShieldInterval = setInterval(checkAndSuppressAds, 250);
+}
+
+function checkAndSuppressAds() {
+    if (!ytPlayer || typeof ytPlayer.getVideoData !== 'function') return;
+
+    try {
+        const videoData = ytPlayer.getVideoData();
+        const activeVideoId = videoData ? videoData.video_id : null;
+
+        // If an ad is currently playing (the active video ID differs from the expected song)
+        if (activeVideoId && currentExpectedVideoId && activeVideoId !== currentExpectedVideoId) {
+            // 1. Instantly mute audio so the user NEVER hears an ad
+            if (ytPlayer.isMuted && !ytPlayer.isMuted()) {
+                ytPlayer.mute();
+            }
+            // 2. Fast forward to skip past the ad
+            const adDuration = (ytPlayer.getDuration && typeof ytPlayer.getDuration === 'function') ? ytPlayer.getDuration() : 0;
+            if (adDuration > 0 && ytPlayer.seekTo) {
+                ytPlayer.seekTo(adDuration + 1, true);
+            }
+            // 3. Accelerate playback speed to 2x to finish unskippable ads rapidly
+            if (ytPlayer.setPlaybackRate) {
+                try { ytPlayer.setPlaybackRate(2); } catch (e) {}
+            }
+        } else if (activeVideoId && activeVideoId === currentExpectedVideoId) {
+            // Real song is playing! Unmute and restore normal volume & speed
+            if (ytPlayer.isMuted && ytPlayer.isMuted()) {
+                ytPlayer.unMute();
+                if (ytPlayer.setVolume && typeof Storage !== 'undefined' && Storage.getVolume) {
+                    ytPlayer.setVolume(Storage.getVolume());
+                }
+            }
+            if (ytPlayer.getPlaybackRate && ytPlayer.getPlaybackRate() !== 1) {
+                try { ytPlayer.setPlaybackRate(1); } catch (e) {}
+            }
+        }
+    } catch (err) {
+        // Silent
+    }
+}
+
 function onPlayerReady(event) {
     ytPlayerReady = true;
+    startAdShield();
     try {
         event.target.setVolume(Storage.getVolume());
     } catch (e) {}
@@ -78,7 +128,15 @@ function onPlayerReady(event) {
 }
 
 function onPlayerStateChange(event) {
+    checkAndSuppressAds();
     if (onPlayerStateChangeCallback) {
+        // If an ad is playing, do NOT report state changes or ad duration to the music player UI
+        if (ytPlayer && typeof ytPlayer.getVideoData === 'function') {
+            const videoData = ytPlayer.getVideoData();
+            if (videoData && videoData.video_id && currentExpectedVideoId && videoData.video_id !== currentExpectedVideoId) {
+                return;
+            }
+        }
         const duration = (ytPlayer && ytPlayer.getDuration) ? ytPlayer.getDuration() : 0;
         onPlayerStateChangeCallback(event.data, duration);
     }
@@ -103,6 +161,8 @@ const YouTubeIntegration = {
     },
     
     loadSong(youtubeId) {
+        currentExpectedVideoId = youtubeId;
+        startAdShield();
         if (this.isReady()) {
             try {
                 ytPlayer.loadVideoById({
@@ -139,6 +199,7 @@ const YouTubeIntegration = {
     },
     
     cueSong(youtubeId) {
+        currentExpectedVideoId = youtubeId;
         if (this.isReady()) {
             ytPlayer.cueVideoById(youtubeId);
         } else {
