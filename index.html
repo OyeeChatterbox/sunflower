@@ -241,12 +241,24 @@
                     </div>
                 </div>
 
-                <!-- Final Question: The Moment of Courage -->
-                <div class="final-question-container observe-target">
-                    <div class="final-question-card">
-                        <div class="final-question-glow"></div>
-                        <p class="final-question-pre">Waise... ek baat poochun?</p>
-                        <h2 class="final-question-ask serif-text">Kya tumko main pasand hoon?</h2>
+                <!-- Interactive Message Box (Connected to WhatsApp) -->
+                <div class="reply-box-container observe-target">
+                    <div class="reply-box-card">
+                        <div class="reply-box-glow"></div>
+                        <span class="reply-tag">Your Turn</span>
+                        <h3 class="reply-title serif-text">Agar tum kuch kehna chaho...</h3>
+                        <p class="reply-subtitle">Jo bhi mann mein aaye, bina soche likh sakti ho.</p>
+                        
+                        <div class="reply-input-wrapper">
+                            <textarea id="her-reply-text" class="reply-textarea" placeholder="Type whatever you feel like saying..." rows="4"></textarea>
+                        </div>
+                        
+                        <button id="send-whatsapp-btn" class="whatsapp-send-btn" type="button">
+                            <svg class="whatsapp-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                <path d="M17.472 14.382c-.301-.15-1.78-.878-2.056-.978-.276-.1-.477-.15-.678.15-.2.3-.777.978-.952 1.178-.175.2-.351.225-.652.075-.3-.15-1.267-.467-2.413-1.488-.893-.796-1.496-1.778-1.672-2.078-.175-.3-.019-.462.131-.612.136-.134.3-.35.451-.525.15-.175.2-.3.301-.5.1-.2.05-.375-.025-.525-.075-.15-.678-1.635-.929-2.241-.244-.59-.492-.51-.678-.52l-.578-.01c-.2 0-.525.075-.8.375-.276.3-1.053 1.03-1.053 2.512 0 1.482 1.078 2.912 1.228 3.112.15.2 2.122 3.24 5.141 4.544.718.31 1.279.495 1.716.634.721.229 1.377.197 1.896.121.579-.085 1.78-.727 2.031-1.429.251-.702.251-1.303.176-1.429-.075-.126-.276-.201-.577-.351zM12.04 2c-5.523 0-10 4.477-10 10 0 1.777.468 3.515 1.356 5.053L2 22l5.093-1.336A9.957 9.957 0 0 0 12.04 22c5.523 0 10-4.477 10-10s-4.477-10-10-10z"/>
+                            </svg>
+                            <span>Send via WhatsApp</span>
+                        </button>
                     </div>
                 </div>
             </div>
