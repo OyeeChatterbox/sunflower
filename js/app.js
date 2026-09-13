@@ -263,4 +263,23 @@ document.addEventListener('DOMContentLoaded', () => {
     if (dialogueSection) {
         dialogueObserver.observe(dialogueSection);
     }
+
+    // Setup WhatsApp Reply Box
+    const sendWhatsappBtn = document.getElementById('send-whatsapp-btn');
+    const replyTextarea = document.getElementById('her-reply-text');
+    
+    if (sendWhatsappBtn && replyTextarea) {
+        sendWhatsappBtn.addEventListener('click', () => {
+            const userMsg = replyTextarea.value.trim();
+            const phoneNumber = "919452451655";
+            
+            let finalMsg = userMsg;
+            if (!finalMsg) {
+                finalMsg = "Hey, I saw your little surprise website... 🌻";
+            }
+            
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(finalMsg)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+    }
 });
