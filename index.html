@@ -241,6 +241,63 @@
                     </div>
                 </div>
 
+                <!-- Personal Voice Note For Her -->
+                <div class="voice-note-container observe-target">
+                    <div class="voice-note-card">
+                        <div class="voice-note-glow"></div>
+                        <div class="voice-note-header">
+                            <span class="voice-tag">🎙️ Voice Note</span>
+                            <h3 class="serif-text voice-title">One last thing, in my voice.</h3>
+                            <p class="voice-subtitle">A little thought recorded just for you.</p>
+                        </div>
+                        
+                        <div class="voice-player">
+                            <button id="voice-play-btn" class="voice-play-btn" type="button" aria-label="Play audio note">
+                                <svg class="voice-icon-play" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                                    <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                                </svg>
+                                <svg class="voice-icon-pause hidden" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                                    <rect x="6" y="4" width="4" height="16"></rect>
+                                    <rect x="14" y="4" width="4" height="16"></rect>
+                                </svg>
+                            </button>
+                            
+                            <div class="voice-track-info">
+                                <div class="voice-waveform" id="voice-waveform">
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                </div>
+                                <div class="voice-progress-container">
+                                    <input type="range" id="voice-progress" class="voice-progress-slider" min="0" max="100" value="0" aria-label="Voice note progress">
+                                    <div class="voice-time-display">
+                                        <span id="voice-current-time">0:00</span>
+                                        <span id="voice-total-time">0:00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Native HTML5 audio element -->
+                        <audio id="note-audio" preload="metadata" src="assets/audio/note-to-her.mp4"></audio>
+                    </div>
+                </div>
+
                 <!-- Interactive Message Box (Connected to WhatsApp) -->
                 <div class="reply-box-container observe-target">
                     <div class="reply-box-card">
