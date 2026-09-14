@@ -9,7 +9,7 @@ const siteConfig = {
         subtitle: "Made with a little more thought than I'm willing to admit."
     },
     voiceNote: {
-        pin: "1209",
+        pin: "1210",
         hint: "Your birth day and month"
     },
     personalObservations: {
