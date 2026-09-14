@@ -8,6 +8,10 @@ const siteConfig = {
         title: "I don't know where this little story goes...<br>but I'm really glad our paths crossed.",
         subtitle: "Made with a little more thought than I'm willing to admit."
     },
+    voiceNote: {
+        pin: "1209",
+        hint: "Your birth day and month"
+    },
     personalObservations: {
         look: {
             text: "That thing you do with your eyes while talking...<br>yeah, I've noticed.",
