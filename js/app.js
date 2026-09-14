@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const lockStatusText = document.getElementById('lock-status-text');
     const lockHintText = document.getElementById('lock-hint-text');
 
-    const CORRECT_PIN = (typeof siteConfig !== 'undefined' && siteConfig.voiceNote && siteConfig.voiceNote.pin) ? String(siteConfig.voiceNote.pin) : "1209";
+    const CORRECT_PIN = (typeof siteConfig !== 'undefined' && siteConfig.voiceNote && siteConfig.voiceNote.pin) ? String(siteConfig.voiceNote.pin) : "1210";
     const PIN_HINT = (typeof siteConfig !== 'undefined' && siteConfig.voiceNote && siteConfig.voiceNote.hint) ? siteConfig.voiceNote.hint : "Your birth day and month";
 
     if (lockHintText) {
