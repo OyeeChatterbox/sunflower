@@ -513,6 +513,230 @@ button {
     text-transform: uppercase;
 }
 
+/* ============================================================
+   Voice Note PIN Lock System
+   ============================================================ */
+.voice-lock-screen {
+    position: relative;
+    z-index: 1;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.voice-lock-screen.unlocking {
+    opacity: 0;
+    transform: scale(0.96);
+    pointer-events: none;
+}
+
+.voice-player-unlocked {
+    position: relative;
+    z-index: 1;
+    animation: fadeInUnlocked 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInUnlocked {
+    from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.lock-indicator {
+    background: #e67e22 !important;
+    box-shadow: 0 0 10px rgba(230, 126, 34, 0.9) !important;
+    animation: pulseLock 2s infinite ease-in-out !important;
+}
+
+@keyframes pulseLock {
+    0%, 100% {
+        transform: scale(0.9);
+        opacity: 0.6;
+        box-shadow: 0 0 6px rgba(230, 126, 34, 0.5);
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+        box-shadow: 0 0 14px rgba(230, 126, 34, 1);
+    }
+}
+
+.lock-badge {
+    color: #9c6500 !important;
+    background: rgba(230, 126, 34, 0.15) !important;
+    border-color: rgba(230, 126, 34, 0.35) !important;
+}
+
+.lock-window {
+    text-align: center;
+    padding: 26px 20px 22px !important;
+    margin-bottom: 16px !important;
+}
+
+.lock-icon-wrap {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    background: rgba(217, 160, 54, 0.14);
+    border: 1px solid rgba(217, 160, 54, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sunflower-main);
+    box-shadow: 0 0 24px rgba(217, 160, 54, 0.25);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lock-icon-wrap.unlocked {
+    background: rgba(37, 211, 102, 0.18);
+    border-color: rgba(37, 211, 102, 0.5);
+    color: #25D366;
+    box-shadow: 0 0 26px rgba(37, 211, 102, 0.4);
+    transform: scale(1.08);
+}
+
+.lock-hint-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: #F2D588;
+    background: rgba(217, 160, 54, 0.16);
+    border: 1px solid rgba(217, 160, 54, 0.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    margin-top: 10px;
+    margin-bottom: 14px;
+}
+
+.pin-dots-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin: 10px 0 6px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.pin-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid rgba(242, 213, 136, 0.45);
+    background: transparent;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box;
+}
+
+.pin-dot.filled {
+    background: linear-gradient(135deg, #F2D588 0%, #D9A036 100%);
+    border-color: #F2D588;
+    transform: scale(1.15);
+    box-shadow: 0 0 10px rgba(217, 160, 54, 0.8);
+}
+
+.pin-dot.success {
+    background: #25D366 !important;
+    border-color: #25D366 !important;
+    box-shadow: 0 0 14px rgba(37, 211, 102, 0.9) !important;
+    transform: scale(1.2);
+}
+
+.pin-dot.error {
+    background: #e74c3c !important;
+    border-color: #e74c3c !important;
+    box-shadow: 0 0 14px rgba(231, 76, 60, 0.9) !important;
+}
+
+.pin-dots-container.shake {
+    animation: pinShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes pinShake {
+    0%, 100% { transform: translateX(0); }
+    15%, 45%, 75% { transform: translateX(-9px); }
+    30%, 60%, 90% { transform: translateX(9px); }
+}
+
+.hidden-pin-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 1px;
+    height: 1px;
+}
+
+.pin-feedback-msg {
+    min-height: 20px;
+    font-size: 0.78rem;
+    color: #ff7675;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    margin-top: 4px;
+    transition: opacity 0.2s ease;
+}
+
+.pin-feedback-msg.success {
+    color: #25D366;
+}
+
+/* Tactile Glass Numeric Keypad */
+.pin-keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 280px;
+    margin: 12px auto 6px;
+}
+
+.keypad-btn {
+    height: 50px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(217, 160, 54, 0.3);
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 3px 10px rgba(80, 60, 30, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.keypad-btn:hover {
+    background: #FAF6ED;
+    border-color: var(--sunflower-main);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(217, 160, 54, 0.22);
+    color: var(--sunflower-dark);
+}
+
+.keypad-btn:active {
+    transform: scale(0.94);
+    background: rgba(217, 160, 54, 0.18);
+}
+
+.keypad-fn-btn {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.55);
+}
+
+.keypad-fn-btn:hover {
+    color: var(--text-primary);
+}
+
 /* Inner Acoustic Display Window */
 .player-display-window {
     position: relative;
@@ -834,6 +1058,14 @@ button {
     .deck-play-btn {
         width: 58px;
         height: 58px;
+    }
+    .pin-keypad {
+        max-width: 250px;
+        gap: 10px;
+    }
+    .keypad-btn {
+        height: 46px;
+        font-size: 1.15rem;
     }
 }
 
