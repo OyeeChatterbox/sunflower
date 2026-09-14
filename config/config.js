@@ -68,11 +68,11 @@ const siteConfig = {
     music: [
         { youtubeId: "r5erDjp6Sa0", title: "Khat", artwork: "assets/music-artwork/default.svg" },
         { youtubeId: "b8vDgqGNwKw", title: "Hossana", artwork: "assets/music-artwork/default.svg" },
-        { youtubeId: "60ItHLz5WEA", title: "Barsaat", artwork: "assets/music-artwork/default.svg" },
+        { youtubeId: "ebZj_nrmH-c", title: "Barsaat - Banjaare", artwork: "assets/music-artwork/default.svg" },
+        { youtubeId: "oafxkMv4xnc", title: "Bairan", artwork: "assets/music-artwork/default.svg" },
         { youtubeId: "U0EI7XFkkV4", title: "Taare", artwork: "assets/music-artwork/default.svg" },
         { youtubeId: "MhXCj8E9CZU", title: "Samjho Na", artwork: "assets/music-artwork/default.svg" },
         { youtubeId: "HjfGxardSkk", title: "Safar", artwork: "assets/music-artwork/default.svg" },
-        { youtubeId: "oafxkMv4xnc", title: "Bairan", artwork: "assets/music-artwork/default.svg" },
         { youtubeId: "KbfKROO1wOY", title: "Zulfein", artwork: "assets/music-artwork/default.svg" },
         { youtubeId: "Pv6Q5gDqYMQ", title: "Sahiba x Majboor", artwork: "assets/music-artwork/default.svg" },
         { youtubeId: "qn3WEdLtp-g", title: "Aankhon Mein Kuch Beintehaa", artwork: "assets/music-artwork/default.svg" },
