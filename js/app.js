@@ -264,7 +264,181 @@ document.addEventListener('DOMContentLoaded', () => {
         dialogueObserver.observe(dialogueSection);
     }
 
-    // Setup Personal Voice Note Player
+    // Setup Personal Voice Note PIN Lock System
+    const lockScreen = document.getElementById('voice-lock-screen');
+    const unlockedPlayer = document.getElementById('voice-player-unlocked');
+    const pinDots = document.querySelectorAll('.pin-dot');
+    const pinDotsContainer = document.getElementById('pin-dots-container');
+    const hiddenPinInput = document.getElementById('voice-pin-input');
+    const pinFeedback = document.getElementById('pin-feedback-msg');
+    const keypad = document.getElementById('pin-keypad');
+    const lockIconWrap = document.getElementById('lock-icon-wrap');
+    const lockStatusText = document.getElementById('lock-status-text');
+    const lockHintText = document.getElementById('lock-hint-text');
+
+    const CORRECT_PIN = (typeof siteConfig !== 'undefined' && siteConfig.voiceNote && siteConfig.voiceNote.pin) ? String(siteConfig.voiceNote.pin) : "1209";
+    const PIN_HINT = (typeof siteConfig !== 'undefined' && siteConfig.voiceNote && siteConfig.voiceNote.hint) ? siteConfig.voiceNote.hint : "Your birth day and month";
+
+    if (lockHintText) {
+        lockHintText.textContent = `Hint: ${PIN_HINT}`;
+    }
+
+    let currentEnteredPin = "";
+    let isPinVerifying = false;
+
+    function updatePinDots() {
+        pinDots.forEach((dot, idx) => {
+            if (idx < currentEnteredPin.length) {
+                dot.classList.add('filled');
+            } else {
+                dot.classList.remove('filled');
+            }
+            dot.classList.remove('error', 'success');
+        });
+    }
+
+    function unlockVoiceNote() {
+        isPinVerifying = true;
+        pinDots.forEach(dot => dot.classList.add('success'));
+        if (lockIconWrap) lockIconWrap.classList.add('unlocked');
+        if (lockStatusText) lockStatusText.textContent = "UNLOCKED • ACCESS GRANTED";
+        if (pinFeedback) {
+            pinFeedback.className = "pin-feedback-msg success";
+            pinFeedback.textContent = "Passcode matched! Unlocking... 🌻";
+        }
+
+        try {
+            sessionStorage.setItem('voice_note_unlocked', 'true');
+        } catch (e) {}
+
+        setTimeout(() => {
+            if (lockScreen) lockScreen.classList.add('unlocking');
+            setTimeout(() => {
+                if (lockScreen) lockScreen.classList.add('hidden');
+                if (unlockedPlayer) {
+                    unlockedPlayer.classList.remove('hidden');
+                }
+            }, 380);
+        }, 650);
+    }
+
+    function rejectPin() {
+        isPinVerifying = true;
+        pinDots.forEach(dot => dot.classList.add('error'));
+        if (pinDotsContainer) pinDotsContainer.classList.add('shake');
+        if (pinFeedback) {
+            pinFeedback.className = "pin-feedback-msg";
+            pinFeedback.textContent = "Galat PIN hai, dobara try karo.";
+        }
+
+        setTimeout(() => {
+            currentEnteredPin = "";
+            updatePinDots();
+            if (pinDotsContainer) pinDotsContainer.classList.remove('shake');
+            if (hiddenPinInput) hiddenPinInput.value = "";
+            isPinVerifying = false;
+        }, 850);
+    }
+
+    function handleDigit(digit) {
+        if (isPinVerifying) return;
+        if (currentEnteredPin.length < 4) {
+            currentEnteredPin += digit;
+            updatePinDots();
+            if (pinFeedback) pinFeedback.textContent = "";
+
+            if (currentEnteredPin.length === 4) {
+                if (currentEnteredPin === CORRECT_PIN) {
+                    unlockVoiceNote();
+                } else {
+                    rejectPin();
+                }
+            }
+        }
+    }
+
+    function handleBackspace() {
+        if (isPinVerifying) return;
+        if (currentEnteredPin.length > 0) {
+            currentEnteredPin = currentEnteredPin.slice(0, -1);
+            updatePinDots();
+            if (pinFeedback) pinFeedback.textContent = "";
+            if (hiddenPinInput) hiddenPinInput.value = currentEnteredPin;
+        }
+    }
+
+    function handleClear() {
+        if (isPinVerifying) return;
+        currentEnteredPin = "";
+        updatePinDots();
+        if (pinFeedback) pinFeedback.textContent = "";
+        if (hiddenPinInput) hiddenPinInput.value = "";
+    }
+
+    // Check if previously unlocked in this session
+    try {
+        if (sessionStorage.getItem('voice_note_unlocked') === 'true') {
+            if (lockScreen) lockScreen.classList.add('hidden');
+            if (unlockedPlayer) unlockedPlayer.classList.remove('hidden');
+        }
+    } catch (e) {}
+
+    // On-screen tactile keypad clicks
+    if (keypad) {
+        keypad.addEventListener('click', (e) => {
+            const btn = e.target.closest('.keypad-btn');
+            if (!btn) return;
+            const key = btn.dataset.key;
+            if (key >= '0' && key <= '9') {
+                handleDigit(key);
+            } else if (key === 'backspace') {
+                handleBackspace();
+            } else if (key === 'clear') {
+                handleClear();
+            }
+        });
+    }
+
+    // Focus hidden input when tapping dots container
+    if (pinDotsContainer && hiddenPinInput) {
+        pinDotsContainer.addEventListener('click', () => {
+            hiddenPinInput.focus();
+        });
+    }
+
+    // Direct input typing support
+    if (hiddenPinInput) {
+        hiddenPinInput.addEventListener('input', (e) => {
+            const val = hiddenPinInput.value.replace(/[^0-9]/g, '');
+            if (val.length <= 4) {
+                currentEnteredPin = val;
+                updatePinDots();
+                if (currentEnteredPin.length === 4) {
+                    if (currentEnteredPin === CORRECT_PIN) {
+                        unlockVoiceNote();
+                    } else {
+                        rejectPin();
+                    }
+                }
+            }
+        });
+    }
+
+    // Keyboard support when scrolling to lock section
+    document.addEventListener('keydown', (e) => {
+        if (!lockScreen || lockScreen.classList.contains('hidden')) return;
+        if (e.target && (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT')) return;
+
+        if (e.key >= '0' && e.key <= '9') {
+            handleDigit(e.key);
+        } else if (e.key === 'Backspace') {
+            handleBackspace();
+        } else if (e.key === 'Escape' || e.key === 'Delete') {
+            handleClear();
+        }
+    });
+
+    // Setup Personal Voice Note Player Controls
     const noteAudio = document.getElementById('note-audio');
     const voicePlayBtn = document.getElementById('voice-play-btn');
     const voiceWaveform = document.getElementById('voice-waveform');
