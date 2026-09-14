@@ -70,6 +70,7 @@ const siteConfig = {
         { youtubeId: "b8vDgqGNwKw", title: "Hossana", artwork: "assets/music-artwork/default.svg" },
         { youtubeId: "ebZj_nrmH-c", title: "Barsaat - Banjaare", artwork: "assets/music-artwork/default.svg" },
         { youtubeId: "oafxkMv4xnc", title: "Bairan", artwork: "assets/music-artwork/default.svg" },
+        { youtubeId: "t900b-LyuEg", title: "Tum — Laila Majnu", artwork: "assets/music-artwork/default.svg" },
         { youtubeId: "U0EI7XFkkV4", title: "Taare", artwork: "assets/music-artwork/default.svg" },
         { youtubeId: "MhXCj8E9CZU", title: "Samjho Na", artwork: "assets/music-artwork/default.svg" },
         { youtubeId: "HjfGxardSkk", title: "Safar", artwork: "assets/music-artwork/default.svg" },
