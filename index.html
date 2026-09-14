@@ -241,98 +241,163 @@
                     </div>
                 </div>
 
-                <!-- Personal Voice Note For Her (Hardware Glass Player Outerbox) -->
+                <!-- Personal Voice Note For Her (Hardware Glass Player Outerbox with PIN Lock) -->
                 <div class="voice-note-container observe-target">
-                    <div class="voice-player-chassis">
+                    <div class="voice-player-chassis" id="voice-chassis">
                         <div class="voice-note-glow"></div>
                         
-                        <!-- Top Hardware Deck Bar -->
-                        <div class="player-deck-bar">
-                            <div class="deck-status">
-                                <span class="status-indicator"></span>
-                                <span class="status-text">VOICE MEMO • SPECIAL NOTE</span>
+                        <!-- 1. PIN Lock Screen State (Active initially) -->
+                        <div class="voice-lock-screen" id="voice-lock-screen">
+                            <div class="player-deck-bar">
+                                <div class="deck-status">
+                                    <span class="status-indicator lock-indicator"></span>
+                                    <span class="status-text" id="lock-status-text">LOCKED • PASSCODE REQUIRED</span>
+                                </div>
+                                <div class="deck-badge lock-badge">
+                                    <span>CONFIDENTIAL</span>
+                                </div>
                             </div>
-                            <div class="deck-badge">
-                                <span>ORIGINAL AUDIO</span>
+
+                            <div class="player-display-window lock-window">
+                                <div class="window-glare"></div>
+                                <div class="lock-icon-wrap" id="lock-icon-wrap">
+                                    <svg class="lock-icon-svg" id="lock-icon-svg" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path id="padlock-shackle" d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="memo-title serif-text">A Secret Note For You</h4>
+                                <p class="memo-caption">Enter the 4-digit passcode to listen.</p>
+
+                                <div class="lock-hint-pill" id="lock-hint-pill">
+                                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg>
+                                    <span id="lock-hint-text">Hint: Your birth day and month</span>
+                                </div>
+
+                                <!-- 4-Digit Indicator Dots -->
+                                <div class="pin-dots-container" id="pin-dots-container" tabindex="0" role="button" aria-label="Enter PIN">
+                                    <span class="pin-dot" data-index="0"></span>
+                                    <span class="pin-dot" data-index="1"></span>
+                                    <span class="pin-dot" data-index="2"></span>
+                                    <span class="pin-dot" data-index="3"></span>
+                                </div>
+                                <input type="tel" id="voice-pin-input" class="hidden-pin-input" maxlength="4" autocomplete="off" inputmode="numeric" pattern="[0-9]*" aria-label="Enter 4-digit PIN">
+                                <div class="pin-feedback-msg" id="pin-feedback-msg"></div>
+                            </div>
+
+                            <!-- Tactile Glass Numeric Keypad -->
+                            <div class="pin-keypad" id="pin-keypad">
+                                <button type="button" class="keypad-btn" data-key="1">1</button>
+                                <button type="button" class="keypad-btn" data-key="2">2</button>
+                                <button type="button" class="keypad-btn" data-key="3">3</button>
+                                <button type="button" class="keypad-btn" data-key="4">4</button>
+                                <button type="button" class="keypad-btn" data-key="5">5</button>
+                                <button type="button" class="keypad-btn" data-key="6">6</button>
+                                <button type="button" class="keypad-btn" data-key="7">7</button>
+                                <button type="button" class="keypad-btn" data-key="8">8</button>
+                                <button type="button" class="keypad-btn" data-key="9">9</button>
+                                <button type="button" class="keypad-btn keypad-fn-btn" data-key="clear" aria-label="Clear PIN">C</button>
+                                <button type="button" class="keypad-btn" data-key="0">0</button>
+                                <button type="button" class="keypad-btn keypad-fn-btn" data-key="backspace" aria-label="Backspace">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+                                        <line x1="18" y1="9" x2="12" y2="15"></line>
+                                        <line x1="12" y1="9" x2="18" y2="15"></line>
+                                    </svg>
+                                </button>
                             </div>
                         </div>
-                        
-                        <!-- Inner Acoustic Display Window -->
-                        <div class="player-display-window">
-                            <div class="window-glare"></div>
+
+                        <!-- 2. Unlocked Voice Player (Revealed when unlocked) -->
+                        <div class="voice-player-unlocked hidden" id="voice-player-unlocked">
+                            <!-- Top Hardware Deck Bar -->
+                            <div class="player-deck-bar">
+                                <div class="deck-status">
+                                    <span class="status-indicator"></span>
+                                    <span class="status-text">VOICE MEMO • SPECIAL NOTE</span>
+                                </div>
+                                <div class="deck-badge">
+                                    <span>UNLOCKED</span>
+                                </div>
+                            </div>
                             
-                            <div class="display-meta">
-                                <div class="memo-title-wrap">
-                                    <h4 class="memo-title serif-text">A Note For You</h4>
-                                    <p class="memo-caption">One last thing, in my own voice.</p>
+                            <!-- Inner Acoustic Display Window -->
+                            <div class="player-display-window">
+                                <div class="window-glare"></div>
+                                
+                                <div class="display-meta">
+                                    <div class="memo-title-wrap">
+                                        <h4 class="memo-title serif-text">A Note For You</h4>
+                                        <p class="memo-caption">One last thing, in my own voice.</p>
+                                    </div>
+                                    <span class="audio-format-pill">HQ AUDIO • 48kHz</span>
                                 </div>
-                                <span class="audio-format-pill">HQ AUDIO • 48kHz</span>
-                            </div>
 
-                            <!-- Animated Waveform Visualizer -->
-                            <div class="voice-waveform" id="voice-waveform">
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                                <span class="wave-bar"></span>
-                            </div>
+                                <!-- Animated Waveform Visualizer -->
+                                <div class="voice-waveform" id="voice-waveform">
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                    <span class="wave-bar"></span>
+                                </div>
 
-                            <!-- Progress & Timers -->
-                            <div class="voice-progress-container">
-                                <input type="range" id="voice-progress" class="voice-progress-slider" min="0" max="100" value="0" aria-label="Voice note progress">
-                                <div class="voice-time-display">
-                                    <span id="voice-current-time">0:00</span>
-                                    <span id="voice-total-time">0:00</span>
+                                <!-- Progress & Timers -->
+                                <div class="voice-progress-container">
+                                    <input type="range" id="voice-progress" class="voice-progress-slider" min="0" max="100" value="0" aria-label="Voice note progress">
+                                    <div class="voice-time-display">
+                                        <span id="voice-current-time">0:00</span>
+                                        <span id="voice-total-time">0:00</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Hardware Control Deck -->
-                        <div class="player-controls-deck">
-                            <button id="voice-rewind-btn" class="deck-control-btn secondary-btn" type="button" aria-label="Rewind 10 seconds">
-                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M1 4v6h6M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
-                                </svg>
-                                <span class="skip-label">10s</span>
-                            </button>
+                            <!-- Hardware Control Deck -->
+                            <div class="player-controls-deck">
+                                <button id="voice-rewind-btn" class="deck-control-btn secondary-btn" type="button" aria-label="Rewind 10 seconds">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M1 4v6h6M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                                    </svg>
+                                    <span class="skip-label">10s</span>
+                                </button>
 
-                            <button id="voice-play-btn" class="deck-play-btn" type="button" aria-label="Play audio note">
-                                <div class="play-btn-glow"></div>
-                                <svg class="voice-icon-play" viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
-                                    <polygon points="6 3 20 12 6 21 6 3"></polygon>
-                                </svg>
-                                <svg class="voice-icon-pause hidden" viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
-                                    <rect x="6" y="4" width="4" height="16"></rect>
-                                    <rect x="14" y="4" width="4" height="16"></rect>
-                                </svg>
-                            </button>
+                                <button id="voice-play-btn" class="deck-play-btn" type="button" aria-label="Play audio note">
+                                    <div class="play-btn-glow"></div>
+                                    <svg class="voice-icon-play" viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
+                                        <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                                    </svg>
+                                    <svg class="voice-icon-pause hidden" viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
+                                        <rect x="6" y="4" width="4" height="16"></rect>
+                                        <rect x="14" y="4" width="4" height="16"></rect>
+                                    </svg>
+                                </button>
 
-                            <button id="voice-forward-btn" class="deck-control-btn secondary-btn" type="button" aria-label="Forward 10 seconds">
-                                <span class="skip-label">10s</span>
-                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M23 4v6h-6M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
-                                </svg>
-                            </button>
+                                <button id="voice-forward-btn" class="deck-control-btn secondary-btn" type="button" aria-label="Forward 10 seconds">
+                                    <span class="skip-label">10s</span>
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M23 4v6h-6M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Native HTML5 audio element -->
